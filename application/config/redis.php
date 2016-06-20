@@ -18,9 +18,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 $config['redis'] = array(
-	'host' => '3e3bcc975a3f4d4d.m.cnsza.kvstore.aliyuncs.com',
+	'host' => '',
 	'port' => 6379,
-	'password' => '3e3bcc975a3f4d4d:SMCloud201605'
+	'password' => ''
 );
 
 //--------------------------------------------------------------------------------------------------
