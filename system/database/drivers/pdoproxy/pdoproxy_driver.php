@@ -216,9 +216,6 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 	protected function _execute($sql)
 	{
 		$result = $this->conn_id->query($sql);
-		if(!$this->is_transaction){
-			$this->conn_id->release();
-		}
 		return $result;
 	}
 
