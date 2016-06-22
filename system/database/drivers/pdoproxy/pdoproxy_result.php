@@ -51,6 +51,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class CI_DB_pdoproxy_result extends CI_DB_result {
 
 	/**
+	 * Is doing transaction
+	 * @var boolean
+	 */
+	public $is_transaction = FALSE;
+
+	/**
+	 * overide the parent constructor
+	 * @param object &$driver_object 
+	 */
+	public function __construct(&$driver_object){
+		parent::__construct($driver_object);
+		$this->is_transaction = $driver_object->is_transaction;
+	}
+
+	/**
 	 * Number of rows in the result set
 	 *
 	 * @return	int
