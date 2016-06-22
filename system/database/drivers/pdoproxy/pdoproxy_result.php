@@ -193,9 +193,6 @@ class CI_DB_pdoproxy_result extends CI_DB_result {
 	protected function _fetch_assoc()
 	{
 		$data = $this->result_id->fetch(PDO::FETCH_ASSOC);
-		if(!$data && !$this->is_transaction){
-			$this->conn_id->release();
-		}
 		return $data;
 	}
 
@@ -212,9 +209,6 @@ class CI_DB_pdoproxy_result extends CI_DB_result {
 	protected function _fetch_object($class_name = 'stdClass')
 	{
 		$data = $this->result_id->fetchObject($class_name);
-		if(!$data && !$this->is_transaction){
-			$this->conn_id->release();
-		}
 		return $data;
 	}
 

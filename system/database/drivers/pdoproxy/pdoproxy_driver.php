@@ -215,6 +215,9 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 	 */
 	protected function _execute($sql)
 	{
+		if($this->total_queries() && !$this->is_transaction){
+			$this->conn_id->release();
+		}
 		$result = $this->conn_id->query($sql);
 		return $result;
 	}
@@ -462,7 +465,7 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 			$this->_trans_depth--;
 			if($this->_trans_depth == 0){
 				$this->is_transaction = FALSE;//End the transaction
-				if($this->last_query()){
+				if($this->total_queries()){
 					$this->conn_id->release();
 				}
 			}
@@ -471,7 +474,7 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 
 		$this->is_transaction = FALSE;//End the transaction
 		//Release the db resources
-		if($this->last_query()){
+		if($this->total_queries()){
 			$this->conn_id->release();
 		}
 
@@ -497,7 +500,7 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 			$this->_trans_depth--;
 			if($this->_trans_depth == 0){
 				$this->is_transaction = FALSE;//End the transaction
-				if($this->last_query()){
+				if($this->total_queries()){
 					$this->conn_id->release();
 				}
 			}
@@ -506,7 +509,7 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 
 		$this->is_transaction = FALSE;//End the transaction
 		//Release the db resources
-		if($this->last_query()){
+		if($this->total_queries()){
 			$this->conn_id->release();
 		}
 
@@ -517,9 +520,10 @@ class CI_DB_pdoproxy_driver extends CI_DB {
 	 * Release the resources for other connections (This is very important for preventing out of memory )
 	 */
 	protected function _close(){
-		if($this->last_query()){
+		if($this->total_queries()){
 			$this->conn_id->release();
 		}
 	}
+
 
 }

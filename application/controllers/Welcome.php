@@ -30,22 +30,9 @@ class Welcome extends CI_Controller {
 	}
 
 	public function test(){
-
-		$this->benchmark->mark('noasyn');
-		$this->db->query('select * from sr_gravida');
-		$this->db->query('select * from sr_gravida');
-		$this->db->query('select * from sr_doctor');
-		$this->benchmark->mark('noasynend');
-
-		$this->benchmark->mark('asyn');
-		$this->db->get_asyn_db()->query('select * from sr_gravida limit 1',function($obj,$stmt){
-			
-		});
-		$this->benchmark->mark('asynend');
-
-		echo 'no asyn time spend : '.$this->benchmark->elapsed_time('noasyn', 'noasynend')."\n";
-		echo '   asyn time spend : '.$this->benchmark->elapsed_time('asyn', 'asynend')."\n";
-
+		$data = $this->db->query('select * from test');
+		var_dump($data->result());
+		echo $data->num_rows();
 	}
 
 
